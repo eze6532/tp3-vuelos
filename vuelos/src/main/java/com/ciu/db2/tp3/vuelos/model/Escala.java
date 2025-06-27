@@ -1,7 +1,6 @@
 package com.ciu.db2.tp3.vuelos.model;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.UUID;
 

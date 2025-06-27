@@ -15,6 +15,30 @@ public class Avion {
 
     private int totalDeAsientos;
 
+	public UUID getNumeroSerieAvion() {
+		return numeroSerieAvion;
+	}
+
+	public void setNumeroSerieAvion(UUID numeroSerieAvion) {
+		this.numeroSerieAvion = numeroSerieAvion;
+	}
+
+	public TipoDeAvion getTipoDeAvion() {
+		return tipoDeAvion;
+	}
+
+	public void setTipoDeAvion(TipoDeAvion tipoDeAvion) {
+		this.tipoDeAvion = tipoDeAvion;
+	}
+
+	public int getTotalDeAsientos() {
+		return totalDeAsientos;
+	}
+
+	public void setTotalDeAsientos(int totalDeAsientos) {
+		this.totalDeAsientos = totalDeAsientos;
+	}
+
     
 }
 

@@ -1,11 +1,15 @@
 package com.ciu.db2.tp3.vuelos.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.*;
 
 @Entity
 public class Aeropuerto {
 
     @Id
+    private UUID id;
+    
     private String nombreAeropuerto;
 
     private String ciudad;
@@ -36,6 +40,14 @@ public class Aeropuerto {
 		this.pais = pais;
 	}
 
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
     
 }
 

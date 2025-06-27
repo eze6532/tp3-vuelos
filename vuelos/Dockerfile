@@ -1,10 +1,16 @@
-# backend/Dockerfile
-FROM eclipse-temurin:17-jdk-alpine
+FROM maven:latest AS maven
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+RUN mvn package
 
-WORKDIR /app
+FROM openjdk:17-jdk-alpine
 
-COPY target/vuelos.jar app.jar
+ARG JAR_FILE=api-vuelos-0.0.1-SNAPSHOT.jar
+
+WORKDIR /opt/app
+
+COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app/api-vuelos.jar
 
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENV JAVA_OPTS=""
+CMD exec java $JAVA_OPTS -jar api-vuelos.jar

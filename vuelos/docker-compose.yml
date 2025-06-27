@@ -1,0 +1,15 @@
+services:
+  api-vuelos:
+    container_name: api-vuelos
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:5000,server=y,suspend=n
+    ports:
+      - 8080:8080
+      - 5000:5000
+networks:
+  default:
+    external: true
+    name: ciu-net-vuelos
