@@ -23,7 +23,7 @@ import com.ciu.db2.tp3.vuelos.model.Aeropuerto;
 @Configuration
 public class EhCacheConfig {
 
-	  @Bean
+	  @Bean("ehCacheManager")
 	  public CacheManager EhcacheManager() {
 	    CacheConfiguration<Long, Aeropuerto> cacheConfiguration = 
 	    CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class,
@@ -39,7 +39,7 @@ public class EhCacheConfig {
 	    CacheManager cacheManager = provider.getCacheManager(); 
 
 	    javax.cache.configuration.Configuration<Long, Aeropuerto> configuration = Eh107Configuration.fromEhcacheCacheConfiguration(cacheConfiguration);
-	    cacheManager.createCache("equiposStore", configuration);
+	    cacheManager.createCache("aeropuertoStore", configuration);
 	    return cacheManager;
 	  }  
 }

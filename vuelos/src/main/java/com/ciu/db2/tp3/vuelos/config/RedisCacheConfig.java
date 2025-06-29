@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext.Seria
 @Configuration
 public class RedisCacheConfig {
 
-	@Bean
+	@Bean("redisCacheManager")
 	public RedisCacheConfiguration cacheConfiguration() {
 	    return RedisCacheConfiguration.defaultCacheConfig()
 	      .entryTtl(Duration.ofSeconds(90l))
