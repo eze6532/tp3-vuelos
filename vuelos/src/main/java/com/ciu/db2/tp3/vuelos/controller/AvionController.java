@@ -16,9 +16,7 @@ import com.ciu.db2.tp3.vuelos.model.Avion;
 import com.ciu.db2.tp3.vuelos.model.TipoDeAvion;
 import com.ciu.db2.tp3.vuelos.service.AvionService;
 import com.ciu.db2.tp3.vuelos.service.TipoDeAvionService;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,6 +88,13 @@ public class AvionController {
         }
     }
 
+    private AvionDto toDto(Avion avion) {
+        return new AvionDto(
+                avion.getNumeroSerieAvion(),
+                avion.getTipoDeAvion() != null ? avion.getTipoDeAvion().getNombreTipoDeAvion() : null,
+                avion.getTotalDeAsientos()
+        );
+    }
     
     private Avion toEntity(AvionDto dto) {
         Avion avion = new Avion();
@@ -103,13 +108,5 @@ public class AvionController {
         return avion;
     }
 
-
-    private AvionDto toDto(Avion avion) {
-        return new AvionDto(
-                avion.getNumeroSerieAvion(),
-                avion.getTipoDeAvion() != null ? avion.getTipoDeAvion().getNombreTipoDeAvion() : null,
-                avion.getTotalDeAsientos()
-        );
-    }
 }
 

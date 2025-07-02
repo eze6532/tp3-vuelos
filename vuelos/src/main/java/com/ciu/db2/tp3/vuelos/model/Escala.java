@@ -3,7 +3,7 @@ package com.ciu.db2.tp3.vuelos.model;
 import jakarta.persistence.*;
 import java.time.LocalTime;
 import java.util.UUID;
-import com.ciu.db2.tp3.vuelos.model.Aeropuerto;
+
 
 @Entity
 @IdClass(EscalaId.class)

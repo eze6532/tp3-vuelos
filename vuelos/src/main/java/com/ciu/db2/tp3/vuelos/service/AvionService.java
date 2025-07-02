@@ -27,7 +27,8 @@ public class AvionService {
     @Transactional
     @Cacheable(value = "avionCache", key = "#id.toString()", cacheManager = "redisCacheManager")
     public Optional<Avion> findById(UUID id) {
-        return this.repo.findById(id);
+    	System.out.println("Accediendo al servicio Redis Cache.");
+    	return this.repo.findById(id);
     }
 
     @CachePut(value = "avionCache", key = "#avion.numeroSerieAvion.toString()", cacheManager = "redisCacheManager")
@@ -39,9 +40,7 @@ public class AvionService {
         try {
             return this.repo.findAll();
         } catch (Exception e) {
-        	
         	System.err.println("Error al buscar aviones: " + e);
-
            throw e;
         }
     }

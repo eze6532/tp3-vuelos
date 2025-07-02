@@ -2,6 +2,8 @@ package com.ciu.db2.tp3.vuelos.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "tipoavion")
 public class TipoDeAvion {
@@ -16,7 +18,8 @@ public class TipoDeAvion {
     @Column(name ="fabricante")
     private String empresa;
 
-    @OneToMany(mappedBy = "tipoavion") 
+    @OneToMany(mappedBy = "tipoavion", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Avion> aviones;
 
 

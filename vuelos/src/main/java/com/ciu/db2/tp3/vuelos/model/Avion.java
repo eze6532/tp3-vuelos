@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@NamedEntityGraph(
+	    name = "Avion.tipoavion",
+	    attributeNodes = @NamedAttributeNode("tipoavion")
+	)
 @Table(name = "avion")
 public class Avion {
 
