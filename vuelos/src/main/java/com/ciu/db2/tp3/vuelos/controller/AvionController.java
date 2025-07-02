@@ -18,6 +18,8 @@ import com.ciu.db2.tp3.vuelos.service.AvionService;
 import com.ciu.db2.tp3.vuelos.service.TipoDeAvionService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,13 +71,13 @@ public class AvionController {
     }
 
 
-    @JsonIgnore
+   
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable UUID id) {
         try {
             Optional<Avion> avionOpt = avionService.findById(id);
             if (avionOpt.isPresent()) {
-                AvionDto dto = toDto(avionOpt.get());
+                AvionDto dto = this.toDto(avionOpt.get());
                 return ResponseEntity.ok(dto);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -88,9 +90,7 @@ public class AvionController {
         }
     }
 
-
-
-
+    
     private Avion toEntity(AvionDto dto) {
         Avion avion = new Avion();
         avion.setNumeroSerieAvion(dto.getNumeroSerieAvion());

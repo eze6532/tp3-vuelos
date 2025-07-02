@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import com.ciu.db2.tp3.vuelos.model.Avion;
 import com.ciu.db2.tp3.vuelos.repository.AvionRepository;
 
+import jakarta.transaction.Transactional;
 
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class AvionService {
         this.repo = repo;
     }
 
-
+    @Transactional
     @Cacheable(value = "avionCache", key = "#id.toString()", cacheManager = "redisCacheManager")
     public Optional<Avion> findById(UUID id) {
         return this.repo.findById(id);
