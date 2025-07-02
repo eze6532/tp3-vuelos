@@ -3,8 +3,6 @@ package com.ciu.db2.tp3.vuelos.dto;
 
 import java.util.UUID;
 
-import com.ciu.db2.tp3.vuelos.model.Avion;
-import com.ciu.db2.tp3.vuelos.model.TipoDeAvion;
 
 public class AvionDto {
 

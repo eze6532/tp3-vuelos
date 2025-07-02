@@ -5,25 +5,32 @@ import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
+@Table(name = "vuelos")
 public class Vuelo {
 
     @Id
+    @Column(name = "numvuelo")
     private UUID numVuelo;
 
     @ManyToOne
-    @JoinColumn(name = "numeroSerieAvion")
+    @JoinColumn(name = "numserieavion")
     private Avion avion;
 
     @ManyToOne
-    @JoinColumn(name = "nombreAeropuertoSalida")
+    @JoinColumn(name = "idaeropuertosalida")
     private Aeropuerto aeropuertoSalida;
 
     @ManyToOne
-    @JoinColumn(name = "nombreAeropuertoLlegada")
+    @JoinColumn(name = "idaeropuertollegada")
     private Aeropuerto aeropuertoLlegada;
 
+    @Column(name = "horasalida")
     private LocalTime horaSalida;
+
+    @Column(name = "horallegada")
     private LocalTime horaLlegada;
+
+ 
     
 	public UUID getNumVuelo() {
 		return numVuelo;

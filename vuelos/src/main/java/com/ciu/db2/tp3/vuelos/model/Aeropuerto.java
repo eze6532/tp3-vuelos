@@ -5,17 +5,21 @@ import java.util.UUID;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "aeropuerto")
 public class Aeropuerto {
 
     @Id
     private UUID id;
-    
+
+    @Column(name = "nombreaeropuerto")
     private String nombreAeropuerto;
 
+    @Column(name = "ciudad")
     private String ciudad;
 
+    @Column(name = "pais")
     private String pais;
-
+    
 	public String getNombreAeropuerto() {
 		return nombreAeropuerto;
 	}

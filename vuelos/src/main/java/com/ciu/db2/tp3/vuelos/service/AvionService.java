@@ -24,17 +24,25 @@ public class AvionService {
     }
 
 
-    @Cacheable(value = "avionCache", key = "#id", cacheManager = "redisCacheManager")
+    @Cacheable(value = "avionCache", key = "#id.toString()", cacheManager = "redisCacheManager")
     public Optional<Avion> findById(UUID id) {
         return this.repo.findById(id);
     }
 
-    @CachePut(value = "avionCache", key = "#avion.numeroSerieAvion", cacheManager = "redisCacheManager")
+    @CachePut(value = "avionCache", key = "#avion.numeroSerieAvion.toString()", cacheManager = "redisCacheManager")
     public Avion add(Avion avion) {
         return this.repo.save(avion);
     }
    
     public List<Avion> findAll() {
-        return this.repo.findAll();
+        try {
+            return this.repo.findAll();
+        } catch (Exception e) {
+        	
+        	System.err.println("Error al buscar aviones: " + e);
+
+           throw e;
+        }
     }
+
 }

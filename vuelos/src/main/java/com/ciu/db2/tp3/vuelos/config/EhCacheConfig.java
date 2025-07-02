@@ -1,6 +1,7 @@
 package com.ciu.db2.tp3.vuelos.config;
 
 import java.time.Duration;
+import java.util.UUID;
 
 import javax.cache.CacheManager;
 import javax.cache.Caching;
@@ -12,6 +13,8 @@ import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.jsr107.Eh107Configuration;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,12 +24,13 @@ import com.ciu.db2.tp3.vuelos.model.Aeropuerto;
 
 
 @Configuration
+@EnableCaching
 public class EhCacheConfig {
 
 	  @Bean("ehCacheManager")
-	  public CacheManager EhcacheManager() {
-	    CacheConfiguration<Long, Aeropuerto> cacheConfiguration = 
-	    CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class,
+	  public JCacheCacheManager EhcacheManager() {
+	    CacheConfiguration<UUID, Aeropuerto> cacheConfiguration = 
+	    CacheConfigurationBuilder.newCacheConfigurationBuilder(UUID.class,
 	    		Aeropuerto.class, 
 	        ResourcePoolsBuilder
 	          .newResourcePoolsBuilder()
@@ -38,8 +42,8 @@ public class EhCacheConfig {
 	    CachingProvider provider = Caching.getCachingProvider();  
 	    CacheManager cacheManager = provider.getCacheManager(); 
 
-	    javax.cache.configuration.Configuration<Long, Aeropuerto> configuration = Eh107Configuration.fromEhcacheCacheConfiguration(cacheConfiguration);
+	    javax.cache.configuration.Configuration<UUID, Aeropuerto> configuration = Eh107Configuration.fromEhcacheCacheConfiguration(cacheConfiguration);
 	    cacheManager.createCache("aeropuertoStore", configuration);
-	    return cacheManager;
+	    return  new JCacheCacheManager(cacheManager);
 	  }  
 }

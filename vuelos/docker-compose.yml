@@ -1,6 +1,6 @@
 services:
   api-vuelos:
-    container_name: api-vuelos
+    container_name: api-ciu-vuelos
     build:
       context: .
       dockerfile: Dockerfile

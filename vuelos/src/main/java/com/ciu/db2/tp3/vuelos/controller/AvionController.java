@@ -2,6 +2,7 @@ package com.ciu.db2.tp3.vuelos.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import com.ciu.db2.tp3.vuelos.model.Avion;
 import com.ciu.db2.tp3.vuelos.model.TipoDeAvion;
 import com.ciu.db2.tp3.vuelos.service.AvionService;
 import com.ciu.db2.tp3.vuelos.service.TipoDeAvionService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,20 +53,42 @@ public class AvionController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<AvionDto>> findAll() {
-        List<AvionDto> avionesDto = avionService.findAll().stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(avionesDto);
+    public ResponseEntity<?> findAll() {
+        try {
+            List<AvionDto> avionesDto = avionService.findAll().stream()
+                    .map(this::toDto)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(avionesDto);
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al obtener la lista de aviones: " + e.getMessage());
+        }
     }
 
 
+    @JsonIgnore
     @GetMapping("/{id}")
-    public ResponseEntity<AvionDto> findById(@PathVariable UUID id) {
-        return avionService.findById(id)
-                .map(avion -> ResponseEntity.ok(toDto(avion)))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> findById(@PathVariable UUID id) {
+        try {
+            Optional<Avion> avionOpt = avionService.findById(id);
+            if (avionOpt.isPresent()) {
+                AvionDto dto = toDto(avionOpt.get());
+                return ResponseEntity.ok(dto);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Avion con ID " + id + " no encontrado");
+            }
+        } catch (Exception e) {
+            System.err.println("Error al buscar avión con ID " + id + ": " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error interno al buscar avión: " + e.getMessage());
+        }
     }
+
+
 
 
     private Avion toEntity(AvionDto dto) {

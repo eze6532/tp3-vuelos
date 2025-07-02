@@ -2,27 +2,27 @@ package com.ciu.db2.tp3.vuelos.model;
 
 import jakarta.persistence.*;
 import java.util.List;
-
 @Entity
+@Table(name = "tipoavion")
 public class TipoDeAvion {
 
     @Id
+    @Column(name ="nombretipoavion")
     private String nombreTipoDeAvion;
 
+    @Column(name ="cantmaxasientos")
     private int cantMaxDeAsientos;
 
+    @Column(name ="fabricante")
     private String empresa;
 
-    @OneToMany(mappedBy = "tipoDeAvion")
+    @OneToMany(mappedBy = "tipoavion") 
     private List<Avion> aviones;
 
-	public String getNombreTipoDeAvion() {
-		return nombreTipoDeAvion;
-	}
 
-	public void setNombreTipoDeAvion(String nombreTipoDeAvion) {
-		this.nombreTipoDeAvion = nombreTipoDeAvion;
-	}
+    public String getNombreTipoDeAvion() {
+        return nombreTipoDeAvion;
+    }
 
 	public int getCantMaxDeAsientos() {
 		return cantMaxDeAsientos;
@@ -47,7 +47,12 @@ public class TipoDeAvion {
 	public void setAviones(List<Avion> aviones) {
 		this.aviones = aviones;
 	}
-    
+
+	public void setNombreTipoDeAvion(String nombreTipoDeAvion) {
+		this.nombreTipoDeAvion = nombreTipoDeAvion;
+	}
+
     
 }
+
 

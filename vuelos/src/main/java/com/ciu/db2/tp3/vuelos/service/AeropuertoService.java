@@ -25,8 +25,8 @@ public class AeropuertoService {
     public List<Aeropuerto> findAll() {
         return aeropuertoRepository.findAll();
     }
-
-    @Cacheable(value = "aeropuertoCache", key = "#id", cacheManager = "ehCacheManager")
+    
+    @Cacheable(value = "aeropuertoStore", key = "#id", cacheManager = "ehCacheManager")
     public Optional<Aeropuerto> findById(UUID id) {
         return aeropuertoRepository.findById(id);
     }

@@ -4,17 +4,21 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "avion")
 public class Avion {
 
     @Id
+    @Column(name = "id")
     private UUID numeroSerieAvion;
 
     @ManyToOne
-    @JoinColumn(name = "nombreTipoDeAvion")
-    private TipoDeAvion tipoDeAvion;
+    @JoinColumn(name = "nombretipoavion")
+    private TipoDeAvion tipoavion;  
 
+    @Column(name = "totalasientos")
     private int totalDeAsientos;
 
+ 
 	public UUID getNumeroSerieAvion() {
 		return numeroSerieAvion;
 	}
@@ -24,11 +28,11 @@ public class Avion {
 	}
 
 	public TipoDeAvion getTipoDeAvion() {
-		return tipoDeAvion;
+		return tipoavion;
 	}
 
 	public void setTipoDeAvion(TipoDeAvion tipoDeAvion) {
-		this.tipoDeAvion = tipoDeAvion;
+		this.tipoavion = tipoDeAvion;
 	}
 
 	public int getTotalDeAsientos() {
