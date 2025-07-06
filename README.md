@@ -2,7 +2,7 @@
 
 Este proyecto forma parte del tercer trabajo práctico de la materia **Base de Datos II**, perteneciente a la carrera de **Tecnicatura en Programación Informática**.
 
-## 🛠 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - Java 17
 - Spring Boot
@@ -11,11 +11,11 @@ Este proyecto forma parte del tercer trabajo práctico de la materia **Base de D
 - Docker (opcional)
 - JPA / Hibernate
 
-## 📦 Contenido
+## Contenido
 
 El proyecto implementa una API REST que gestiona [describir funcionalidad, por ejemplo: vuelos, reservas, usuarios, etc.]. Incluye la configuración de base de datos, endpoints CRUD y pruebas básicas de funcionamiento.
 
-## 🚀 Ejecución
+## Ejecución
 
 Para ejecutar el proyecto:
 

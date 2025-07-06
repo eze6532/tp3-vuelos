@@ -69,7 +69,10 @@ public class AvionController {
     }
 
 
-   
+   /*
+    La consulta de Avión por PK es Cacheable por caché externa (Redis).
+    */
+    
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable UUID id) {
         try {
