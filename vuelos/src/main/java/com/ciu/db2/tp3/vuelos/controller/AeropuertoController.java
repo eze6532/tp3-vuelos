@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +46,7 @@ public class AeropuertoController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<AeropuertoDto> findById(@PathVariable UUID id) {
-        return ( service.findById(id)
+        return ( this.service.findById(id)
                 .map(this::toDto)
                 .map(ResponseEntity::ok))
                 .orElse(ResponseEntity.notFound().build());
@@ -54,9 +56,19 @@ public class AeropuertoController {
     El alta aeropouerto debe soportar concurrencia por manejada por base de datos (UPSERT).
     */
     @PostMapping("/add")
-    public void add(@RequestBody Aeropuerto newAeropuerto) {
-        service.upsert(newAeropuerto); 
+    public ResponseEntity<?> add(@RequestBody Aeropuerto newAeropuerto) {
+        try {
+            Aeropuerto creado = this.service.agregarAeropuerto(newAeropuerto);
+            return ResponseEntity.ok(this.toDto(creado));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("Error: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Error interno: " + e.getMessage());
+        }
     }
+
     
    /*
     funciones auxiliares

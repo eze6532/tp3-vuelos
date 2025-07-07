@@ -29,10 +29,11 @@ CREATE TABLE tipoAvion (
 );
 
 CREATE TABLE aeropuerto (
-  id UUID primary key, 
+  id UUID PRIMARY KEY,
   nombreAeropuerto VARCHAR(100),
   ciudad VARCHAR(100),
-  pais VARCHAR(100)
+  pais VARCHAR(100),
+  CONSTRAINT uq_aeropuerto_nombre_ciudad_pais UNIQUE (nombreAeropuerto, ciudad, pais)
 );
 
 CREATE TABLE avion (
@@ -75,29 +76,6 @@ CREATE TABLE avionPuedeAterrizar (
 );
 
 
-
-CREATE OR REPLACE FUNCTION upsert_aeropuerto(
-  p_id UUID,
-  p_nombreAeropuerto VARCHAR,
-  p_ciudad VARCHAR,
-  p_pais VARCHAR
-) RETURNS VOID AS $$
-BEGIN
-  INSERT INTO aeropuerto (id, nombreAeropuerto, ciudad, pais)
-  VALUES (p_id, p_nombreAeropuerto, p_ciudad, p_pais)
-  ON CONFLICT (id) DO UPDATE
-  SET nombreAeropuerto = EXCLUDED.nombreAeropuerto,
-      ciudad = EXCLUDED.ciudad,
-      pais = EXCLUDED.pais;
-END;
-$$ LANGUAGE plpgsql;
-
-SELECT upsert_aeropuerto(
-  '123e4567-e89b-12d3-a456-426614174000',
-  'Aeropuerto Ezeiza',
-  'Buenos Aires',
-  'Argentina'
-);
 
 
 -- Índices para vuelos

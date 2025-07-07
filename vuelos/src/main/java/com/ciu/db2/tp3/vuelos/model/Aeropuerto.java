@@ -1,14 +1,18 @@
 package com.ciu.db2.tp3.vuelos.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "aeropuerto")
-public class Aeropuerto {
+public class Aeropuerto implements Serializable{
 
-    @Id
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private UUID id;
 
     @Column(name = "nombreaeropuerto")

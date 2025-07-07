@@ -34,13 +34,22 @@ public class AeropuertoService {
 
 
     @Transactional
-    public void upsert(Aeropuerto aeropuerto) {
-        aeropuertoRepository.upsertAeropuerto(
-            aeropuerto.getId(),
-            aeropuerto.getNombreAeropuerto(),
-            aeropuerto.getCiudad(),
-            aeropuerto.getPais()
-        );
+    public Aeropuerto agregarAeropuerto(Aeropuerto aeropuerto) {
+        Optional<Aeropuerto> existente = aeropuertoRepository
+            .findByNombreAeropuertoAndCiudadAndPais(
+                aeropuerto.getNombreAeropuerto(),
+                aeropuerto.getCiudad(),
+                aeropuerto.getPais()
+            );
+
+        if (existente.isPresent()) {
+            throw new IllegalArgumentException("Ya existe un aeropuerto con esa información.");
+        }
+
+        aeropuerto.setId(UUID.randomUUID());
+        return aeropuertoRepository.save(aeropuerto);
     }
+
+
 }
 

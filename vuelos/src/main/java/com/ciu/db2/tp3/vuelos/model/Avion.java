@@ -1,6 +1,8 @@
 package com.ciu.db2.tp3.vuelos.model;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
@@ -9,9 +11,11 @@ import java.util.UUID;
 	    attributeNodes = @NamedAttributeNode("tipoavion")
 	)
 @Table(name = "avion")
-public class Avion {
+public class Avion implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "id")
     private UUID numeroSerieAvion;
 
